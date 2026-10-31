@@ -34,20 +34,27 @@ Nothing is simulated: every result is the runtime's own error. The attacker addr
 ## Quickstart (Cosmonic Desktop)
 
 1. **Install [Cosmonic Desktop](https://cosmonic.com/desktop/).**
-2. **Build and push** the component to Desktop's built-in registry. You need Go (see
-   `cosmonic-app/go.mod`) and [`componentize-go`](https://github.com/bytecodealliance/componentize-go) `v0.3.4`:
-
-   ```bash
-   cd cosmonic-app
-   componentize-go --world wasip2-example build -o webshell.wasm
-   wash oci push --insecure oci.localhost:8200/apps/webshell-sandbox:0.1.4 webshell.wasm
-   ```
-
-3. **Apply** [`deploy/webshell-sandbox.local.workload.yaml`](deploy/webshell-sandbox.local.workload.yaml),
-   for example by asking an assistant connected to Desktop's MCP server
+2. **Apply** [`deploy/webshell-sandbox.workload.yaml`](deploy/webshell-sandbox.workload.yaml). It
+   pins the published component by digest on ghcr, so there's nothing to build. The easiest route
+   is an assistant connected to Desktop's MCP server
    ([Connect coding agents](https://cosmonic.com/docs/desktop/coding-agents/)).
-4. **Open <http://webshell-sandbox.localhost:8200/shell>** and press the red buttons.
+3. **Open <http://webshell-sandbox.localhost:8200/shell>** and press the red buttons.
    `/shell#all` fires every attack on load. PersonFacts itself is at `/`.
+
+Or see it live at <https://webshell-sandbox.kosmonic.com/shell>.
+
+### Build from source
+
+You need Go (see `cosmonic-app/go.mod`) and
+[`componentize-go`](https://github.com/bytecodealliance/componentize-go) `v0.3.4`:
+
+```bash
+cd cosmonic-app
+componentize-go --world wasip2-example build -o webshell.wasm
+wash oci push --insecure oci.localhost:8200/apps/webshell-sandbox:0.1.4 webshell.wasm
+```
+
+Then apply [`deploy/webshell-sandbox.local.workload.yaml`](deploy/webshell-sandbox.local.workload.yaml).
 
 ### From the command line
 
@@ -88,7 +95,8 @@ cosmonic-app/                      the Go component (componentize-go, wasip2)
     attacks.go                     /run: the three techniques and their building blocks
     static/                        PersonFacts site (/), the /shell demo page and hero
 deploy/
-  webshell-sandbox.local.workload.yaml   one workload, one component, no grants
+  webshell-sandbox.workload.yaml         one workload, one component, no grants (ghcr image)
+  webshell-sandbox.local.workload.yaml   the same, from your own build
 docs/
   hero/                            hero source (HTML) and render.sh
   images/webshell-sandbox-rce-hero.png
