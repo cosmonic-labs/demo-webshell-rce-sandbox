@@ -26,7 +26,7 @@ import (
 	. "go.bytecodealliance.org/pkg/wit/types"
 )
 
-//go:embed static/index.html static/css/*.css static/img/*.svg static/shell/index.html static/shell/hero.png static/favicon.svg
+//go:embed static/index.html static/css/*.css static/img/*.svg static/shell/index.html static/shell/hero.png static/favicon.svg static/site.js
 var assets embed.FS
 
 // Handle handles one incoming HTTP request.

@@ -11,7 +11,7 @@
 #
 # Build + push to Cosmonic Desktop's built-in registry first:
 #   cd cosmonic-app && componentize-go --world wasip2-example build -o webshell.wasm
-#   wash oci push --insecure oci.localhost:8200/apps/webshell-sandbox:0.1.4 webshell.wasm
+#   wash oci push --insecure oci.localhost:8200/apps/webshell-sandbox:0.1.6 webshell.wasm
 # Then apply: cosmonic_workload_apply(<this file>)
 # Open: http://webshell-sandbox.localhost:8200/shell
 apiVersion: runtime.wasmcloud.dev/v1alpha1
@@ -25,7 +25,7 @@ metadata:
 spec:
   components:
     - name: personfacts
-      image: oci.localhost:8200/apps/webshell-sandbox:0.1.4
+      image: oci.localhost:8200/apps/webshell-sandbox:0.1.6
       poolSize: 4
       localResources:
         allowedHosts: []   # deny-all egress; no volume = zero filesystem authority
