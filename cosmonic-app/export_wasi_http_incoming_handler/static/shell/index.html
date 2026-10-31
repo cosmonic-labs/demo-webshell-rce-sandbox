@@ -180,6 +180,7 @@
 
   /* webshell additions */
   .eyebrow .ws{color:var(--red)}
+  .eyebrow.blocking{margin-top:-4px;color:var(--muted);font-size:11.5px}
   h1 .ws{color:var(--red)}
   .blocks{margin:34px 0 0}
   .blocks h2{font-size:21px;margin:0 0 4px;letter-spacing:-.01em}
@@ -197,7 +198,7 @@
   .tc .here{margin-top:auto;font-size:12.5px;color:#8ff0cd;border-left:2px solid var(--green-line);padding-left:10px}
   .tc .here b{font-weight:700}
   .cmdbox{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
-  .cmdbox input{flex:1;min-width:0;font-family:var(--mono);font-size:13.5px;color:var(--ink);background:var(--bg2);border:1px solid var(--line2);border-radius:11px;padding:11px 13px}
+  .cmdbox input{flex:1 1 240px;min-width:0;font-family:var(--mono);font-size:13.5px;color:var(--ink);background:var(--bg2);border:1px solid var(--line2);border-radius:11px;padding:11px 13px}
   .cmdbox input:focus{outline:none;border-color:var(--purple)}
   .cmdout{display:none;margin-top:10px;font-family:var(--mono);font-size:12.5px;background:#05070d;border:1px solid var(--line);border-radius:11px;padding:11px 13px;white-space:pre-wrap;word-break:break-word;color:#f3b79e}
   .cmdout .u{color:var(--faint);display:block;margin-bottom:4px;word-break:break-all}
@@ -205,16 +206,26 @@
   .techhdr code{font-family:var(--mono);font-size:11.5px;color:var(--faint);font-weight:400;overflow-wrap:anywhere}
   .steps td{font-family:var(--sans);font-size:13px;color:var(--muted)}
   .steps td{overflow-wrap:anywhere}
+  .steps td.blk,.steps td.st{white-space:nowrap;overflow-wrap:normal;width:1%}
+  .steps .tag{display:inline-block;white-space:nowrap}
+  /* fixed columns so the bash, python and curl tables line up */
+  .steps{table-layout:fixed}
+  .steps th:nth-child(1){width:150px} .steps th:nth-child(2){width:32%} .steps th:nth-child(3){width:96px}
   .steps td.res{font-family:var(--mono);font-size:11.5px;color:#f3b79e}
   .steps td.res .why{font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:4px}
   .steps td.res a{font-family:var(--sans);font-size:11.5px}
-  /* phones: each step becomes a card */
+  /* phones: each step becomes a card — building block and verdict on top,
+     then the attempt and the sandbox's answer at full width */
   @media(max-width:620px){
     .steps,.steps tbody{display:block}
     .steps thead{display:none}
-    .steps tr{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:6px 10px;padding:12px 0;border-bottom:1px solid var(--line)}
-    .steps td{padding:0;border:0}
-    .steps td.res{grid-column:1/-1}
+    .steps tr{display:grid;grid-template-columns:1fr auto;grid-template-areas:"blk st" "act act" "res res";align-items:center;gap:6px 10px;padding:12px 0;border-bottom:1px solid var(--line)}
+    .steps td{padding:0;border:0;width:auto}
+    .steps td.blk{grid-area:blk} .steps td.st{grid-area:st}
+    .steps td.act{grid-area:act;color:var(--ink)}
+    .steps td.res{grid-area:res}
+    .stat{flex:1 1 calc(50% - 5px);min-width:calc(50% - 5px)}
+    .stat .n{font-size:21px}
   }
 </style>
 </head>
@@ -233,19 +244,22 @@
     </div>
   </div>
 
-  <a class="callout" href="/">
-    <span class="flag">The target</span>
+  <a class="callout" href="https://cosmonic.com/blog/stopping-remote-code-execution-with-a-sandbox/" target="_blank" rel="noopener">
+    <span class="flag">Read the story</span>
     <span class="ct">
-      <span class="h">Meet PersonFacts, the site under attack</span>
-      <span class="d">A made-up company for this demo, not a real service. Its web app hides a classic webshell at <code>/exec</code>.</span>
+      <span class="h">Stopping Remote Code Execution with a Sandbox</span>
+      <span class="d">The full write-up on the Cosmonic Blog: how Cosmonic's secure, capability-driven sandbox stops remote code execution without a patch.</span>
     </span>
     <span class="arr" aria-hidden="true">→</span>
   </a>
 
-  <p class="eyebrow"><span class="ws">Webshell</span> · CWE-78 OS command injection · live demo</p>
+  <p class="eyebrow">Sandboxing: <span class="ws">Webshell</span> · MITRE ATT&amp;CK T1505.003 · CWE-78 OS command injection · live demo</p>
+  <p class="eyebrow blocking">Blocking: <span class="ws">T1059.004</span> Unix shell · <span class="ws">T1059.006</span> Python · <span class="ws">T1105</span> ingress tool transfer</p>
   <h1>You can't execute<br>what you <span class="u">don't have</span>.</h1>
-  <p class="lede">A <b class="ws" style="color:var(--red)">webshell</b> turns one URL into a remote shell. PersonFacts serves a normal website, plus <code>/exec?cmd=…&amp;arg=…</code>, which hands whatever you send straight to the operating system. In a container that is <b>game over</b>: read secrets, open a reverse shell, pull down stage two. Below, the <b>same vulnerable code</b> runs inside an <b>isolated, deny-by-default, capability driven, secure Cosmonic sandbox</b>. <b>Nothing is patched.</b> Every attack runs. None of them can do anything.</p>
-  <p class="lede" style="margin-top:10px">This is a demonstration of mitigating Remote Code Execution (RCE) type exploits using a secure, deny-by-default, isolated Cosmonic Sandbox.</p>
+  <p class="lede">A <b class="ws" style="color:var(--red)">web shell</b> is a small malicious script planted on a web server. It lets an attacker control that server from a browser: they type a command into a hidden page, the server runs it and sends back the result. It's a remote control panel hiding inside your own website, and it <b>keeps working after the original hole is patched</b>.</p>
+  <p class="lede" style="margin-top:10px"><a href="/">PersonFacts</a> is a web app with a web shell built in. Its normal pages work as expected, but one URL, <code>/exec?cmd=…&amp;arg=…</code>, takes whatever command and argument you send and runs them on the host. Inside a container, that is <b>the whole server handed over</b>. An attacker can dump credentials and secrets, open a connection back to their own machine, and download the next piece of their toolkit.</p>
+  <p class="lede" style="margin-top:10px">Here, the <b>same vulnerable app</b> runs inside a <b>Cosmonic sandbox</b>. It is isolated, and it can use only what it has been explicitly granted; everything else is denied. We changed none of the vulnerable code, and every attack in the demo is fired. Each one hits a wall: there is <b>no shell to call, no filesystem to read, and no network to reach</b>.</p>
+  <p class="lede" style="margin-top:10px">This demo shows how a deny-by-default Cosmonic sandbox stops remote code execution (RCE) without needing a patch.</p>
 
   <a class="heroimg" href="/shell/hero.png" target="_blank" rel="noopener" title="open full size">
     <img src="/shell/hero.png" width="2400" height="1260" alt="An attacker sends shell commands to the PersonFacts webshell; inside a Cosmonic sandbox with no exec, files, sockets or outbound network, the bash, python and curl reverse-shell techniques are all blocked.">
@@ -347,7 +361,7 @@
 
   <div class="foot">
     <span>A real <code>exec.Command(cmd, args...)</code> webshell · not patched · contained by the sandbox.</span>
-    <span><a href="https://cosmonic.com/ai-sandbox/" target="_blank" rel="noopener">cosmonic.com/ai-sandbox</a></span>
+    <span><a href="https://cosmonic.com/ai-sandbox/" target="_blank" rel="noopener">cosmonic.com/ai-sandbox</a> · © 2026 Cosmonic</span>
   </div>
 
 </div>
@@ -426,9 +440,9 @@
       const rows=t.steps.map(s=>{
         const tag=s.blocked?'<span class="tag red">BLOCKED</span>':'<span class="tag" style="color:var(--red)">RAN</span>';
         const link=s.exec_url?' · <a href="'+esc(s.exec_url)+'" target="_blank" rel="noopener">open the raw /exec request</a>':'';
-        return '<tr><td><span class="pill b">'+esc(BLOCK[s.block]||s.block)+'</span></td>'+
-          '<td>'+esc(s.action)+'<div class="flow" style="margin-top:2px">via '+esc(s.via)+'</div></td>'+
-          '<td>'+tag+'</td>'+
+        return '<tr><td class="blk"><span class="pill b">'+esc(BLOCK[s.block]||s.block)+'</span></td>'+
+          '<td class="act">'+esc(s.action)+'<div class="flow" style="margin-top:2px">via '+esc(s.via)+'</div></td>'+
+          '<td class="st">'+tag+'</td>'+
           '<td class="res">'+esc(s.result)+(s.why?'<div class="why">'+esc(s.why)+link+'</div>':link)+'</td></tr>';
       }).join('');
       return '<div class="techhdr">'+esc(t.name)+' <code>'+esc(t.payload)+'</code></div>'+

@@ -220,6 +220,9 @@ p.paragraph {
 .socialproof .logos {
 	flex-wrap: wrap;
 }
+.socialproof .logos a {
+	display: block;
+}
 @media (max-width: 900px) {
 	.socialproof .flex {
 		flex-direction: column;

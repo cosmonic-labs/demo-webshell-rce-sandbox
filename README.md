@@ -40,7 +40,7 @@ Nothing is simulated: every result is the runtime's own error. The attacker addr
    ```bash
    cd cosmonic-app
    componentize-go --world wasip2-example build -o webshell.wasm
-   wash oci push --insecure oci.localhost:8200/apps/webshell-sandbox:0.1.1 webshell.wasm
+   wash oci push --insecure oci.localhost:8200/apps/webshell-sandbox:0.1.4 webshell.wasm
    ```
 
 3. **Apply** [`deploy/webshell-sandbox.local.workload.yaml`](deploy/webshell-sandbox.local.workload.yaml),
