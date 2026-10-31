@@ -1,0 +1,7 @@
+FROM ubuntu
+COPY simpleExec /
+COPY index.html.ubuntu /index.html
+COPY css ./css
+COPY img ./img
+CMD ["/simpleExec"]
+EXPOSE 8080

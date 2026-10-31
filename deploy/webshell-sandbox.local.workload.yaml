@@ -1,0 +1,37 @@
+# Durable Workload — the webshell RCE sandbox demo, from a LOCAL build.
+#
+# ONE component, `personfacts`: the PersonFacts marketing site, the classic
+# /exec?cmd=…&arg=… webshell (os/exec, unpatched), and the /shell demo page.
+#
+# The security policy is what this file does NOT grant:
+#   - no volumes          → no filesystem: no /dev/tcp, /dev/ptmx or /tmp
+#   - allowedHosts: []    → the host denies every outbound HTTP request
+#   - no wasi:sockets     → the component can't open a raw TCP connection
+#   - WASI has no exec    → there is no shell, interpreter or $PATH to run
+#
+# Build + push to Cosmonic Desktop's built-in registry first:
+#   cd cosmonic-app && componentize-go --world wasip2-example build -o webshell.wasm
+#   wash oci push --insecure oci.localhost:8200/apps/webshell-sandbox:0.1.1 webshell.wasm
+# Then apply: cosmonic_workload_apply(<this file>)
+# Open: http://webshell-sandbox.localhost:8200/shell
+apiVersion: runtime.wasmcloud.dev/v1alpha1
+kind: Workload
+metadata:
+  name: webshell-sandbox
+  namespace: default
+  annotations:
+    # Local builds are unsigned; Desktop needs this to run them.
+    desktop.cosmonic.com/unsafe-allow-unsigned: "true"
+spec:
+  components:
+    - name: personfacts
+      image: oci.localhost:8200/apps/webshell-sandbox:0.1.1
+      poolSize: 4
+      localResources:
+        allowedHosts: []   # deny-all egress; no volume = zero filesystem authority
+  hostInterfaces:
+    - namespace: wasi
+      package: http
+      interfaces: [incoming-handler]
+      config:
+        host: webshell-sandbox.localhost   # http://webshell-sandbox.localhost:8200/

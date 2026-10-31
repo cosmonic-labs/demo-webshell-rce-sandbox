@@ -1,0 +1,7 @@
+FROM golang:latest
+COPY simpleExec /home/
+COPY index.html.golang /home/index.html
+COPY css /home/css
+COPY img /home/img
+CMD ["/home/simpleExec"]
+EXPOSE 8080

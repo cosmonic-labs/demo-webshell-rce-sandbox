@@ -1,0 +1,10 @@
+# Component build output
+*.wasm
+
+# Prebuilt host binaries of the webshell: build from source instead
+simpleexec-personfacts/simpleExec
+simpleexec-personfacts/simpleExecMac
+
+# macOS
+.DS_Store
+Icon?

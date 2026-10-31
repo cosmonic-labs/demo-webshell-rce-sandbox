@@ -1,0 +1,211 @@
+<html>
+  <head>
+    <title>
+      PersonFact - Person Facts.
+    </title>
+    <meta charSet="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/devices.css">
+  </head>
+  <body>
+    <header class="header">
+      <div class="container-lrg">
+        <div class="col-12 spread">
+          <div>
+            <a class="logo">
+              PersonFacts (fedora)
+            </a>
+          </div>
+          <div>
+            <a class="nav-link" href="#">
+              Twitter
+            </a>
+            <a class="nav-link" href="#">
+              Facebook
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="container-lrg flex">
+        <div class="col-6 centervertical">
+          <h1 class="heading">
+            Instantly search people.
+          </h1>
+          <h2 class="paragraph ">
+            We're creating the best place to go when starting a new business or company. With PersonFacts you can instantly search people and see facts.
+          </h2>
+          <div class="ctas">
+            <input class="ctas-input" type="text" placeholder="Your Email Address">
+            <button class="ctas-button">
+              Sign Up
+            </button>
+          </div>
+        </div>
+        <div class="col-6 sidedevices">
+          <div class="iphoneipad">
+            <div class="iphone">
+              <div class="mask">
+                <img class="mask-img" src="img/mobileapp.svg">
+              </div>
+            </div>
+            <div class="ipad">
+              <div class="mask">
+                <img class="mask-img" src="img/webapp.svg">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="feature5">
+      <div class="container-sml text-center">
+        <div class="col-12">
+          <h3 class="heading">
+            The Best Person Facts.
+          </h3>
+        </div>
+      </div>
+      <div class="container-lrg flex">
+        <div class="col-5 centervertical">
+          <div class="steps">
+            <div class="emoji">
+              <b>
+                🎓
+              </b>
+            </div>
+            <h3 class="subheading">
+              Smart
+            </h3>
+            <p class="paragraph">
+              PersonFacts instantly shows you the best person facts. Followed by hundreds of new companies. Get your person facts today!
+            </p>
+          </div>
+          <div class="steps">
+            <div class="emoji">
+              <b>
+                💐
+              </b>
+            </div>
+            <h3 class="subheading">
+              Gorgeous
+            </h3>
+            <p class="paragraph">
+              Searching people has never been soooo easy! With PersonFacts you can instantly search for twitter, facebook, medium, and instagram handles.
+            </p>
+          </div>
+          <div class="steps">
+            <div class="emoji">
+              <b>
+                🚀
+              </b>
+            </div>
+            <h3 class="subheading">
+              Insanely Fast
+            </h3>
+            <p class="paragraph">
+              We've hand travelled the depths of the internet to bring you gorgeous facts. The best facts. &nbsp;Featuring the beautiful facts of people.
+            </p>
+          </div>
+        </div>
+        <div class="col-1">
+        </div>
+        <div class="col-6">
+          <div class="sidedevices">
+            <div class="iphoneipad2">
+              <div class="iphone">
+                <div class="mask">
+                  <img class="mask-img" src="img/mobileapp.svg">
+                </div>
+              </div>
+              <div class="ipad">
+                <div class="mask">
+                  <img class="mask-img" src="img/webapp.svg">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="socialproof">
+      <div class="container-lrg">
+        <div class="flex">
+          <div class="col-6">
+            <h4 class="subheading">
+              "What a time saver for startup founders...this can be one of the most awful and creative sinkholes that a team goes through... Bravo for making this hellish process a little better."
+            </h4>
+            <p class="paragraph">
+              Gregory Deepwood - President @ DeepWoods
+            </p>
+          </div>
+          <div class="col-6 logos flex">
+            <img class="col-4" src="img/techcrunch.svg">
+            <img class="col-4" src="img/google.svg">
+            <img class="col-4" src="img/citibank.svg">
+            <img class="col-4" src="img/softbank.svg">
+            <img class="col-4" src="img/dribble.svg">
+            <img class="col-4" src="img/bloomberg.svg">
+            <img class="col-4" src="img/facebook.svg">
+            <img class="col-4" src="img/applewatch.svg">
+            <img class="col-4" src="img/amazon.svg">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container-sml flex text-center">
+        <div class="col-12">
+          <h3 class="heading">
+            Instantly search&nbsp;<div>People Facts</div>
+          </h3>
+          <div class="ctas">
+            <a class="ctas-button" href="">
+              Sign Up
+            </a>
+            <a class="ctas-button-2" href="">
+              Sign Up
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="container-lrg footer-nav flex">
+        <div class="col-3 vertical">
+          <a class="logo">
+            PersonFacts
+          </a>
+          <a class="nav-link2">
+            ©2017 Liam Randall
+          </a>
+        </div>
+        <div class="col-3 vertical">
+          <a class="nav-link2">
+            About
+          </a>
+          <a class="nav-link2">
+            Features
+          </a>
+          <a class="nav-link2">
+            Pricing
+          </a>
+        </div>
+        <div class="col-3 vertical">
+          <a class="nav-link2">
+            Twitter
+          </a>
+          <a class="nav-link2">
+            Facebook
+          </a>
+          <a class="nav-link2">
+            Contact
+          </a>
+        </div>
+        <div class="col-3 vertical">
+          <a class="nav-link2">
+            123 People Fact #708, 90210, California, United States of America
+          </a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

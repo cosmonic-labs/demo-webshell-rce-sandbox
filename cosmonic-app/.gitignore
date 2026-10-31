@@ -1,0 +1,8 @@
+# Built component — produced by CI and `componentize-go build`
+*.wasm
+
+# Go
+/vendor/
+
+# Editor / OS
+.DS_Store
