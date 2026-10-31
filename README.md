@@ -51,7 +51,7 @@ You need Go (see `cosmonic-app/go.mod`) and
 ```bash
 cd cosmonic-app
 componentize-go --world wasip2-example build -o webshell.wasm
-wash oci push --insecure oci.localhost:8200/apps/webshell-sandbox:0.1.6 webshell.wasm
+wash oci push --insecure oci.localhost:8200/apps/webshell-sandbox:0.1.7 webshell.wasm
 ```
 
 Then apply [`deploy/webshell-sandbox.local.workload.yaml`](deploy/webshell-sandbox.local.workload.yaml).
