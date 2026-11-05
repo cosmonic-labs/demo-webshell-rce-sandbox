@@ -24,7 +24,7 @@ metadata:
 spec:
   components:
     - name: personfacts
-      image: ghcr.io/cosmonic-labs/demo-webshell-rce-sandbox/web:0.1.6@sha256:42c40f501695277658a5a2c20b3f697845532aa908bf271196b580cdadb10373
+      image: ghcr.io/cosmonic-labs/demo-webshell-rce-sandbox/web:0.1.7@sha256:3b7cfb5eda31d086873a1312aa9e9488fbdcb84db95455094df192912d150bea
       poolSize: 4
       localResources:
         allowedHosts: []   # deny-all egress; no volume = zero filesystem authority
